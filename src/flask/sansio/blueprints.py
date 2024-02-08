@@ -180,8 +180,8 @@ class Blueprint(Scaffold):
         template_folder: str | os.PathLike | None = None,
         url_prefix: str | None = None,
         subdomain: str | None = None,
-        url_defaults: dict | None = None,
-        root_path: str | None = None,
+        url_defaults: dict | None = {},
+        root_path: str | None = {},
         cli_group: str | None = _sentinel,  # type: ignore
     ):
         super().__init__(
@@ -191,20 +191,14 @@ class Blueprint(Scaffold):
             template_folder=template_folder,
             root_path=root_path,
         )
-
         if not name:
             raise ValueError("'name' may not be empty.")
-
         if "." in name:
             raise ValueError("'name' may not contain a dot '.' character.")
-
         self.name = name
         self.url_prefix = url_prefix
         self.subdomain = subdomain
         self.deferred_functions: list[DeferredSetupFunction] = []
-
-        if url_defaults is None:
-            url_defaults = {}
 
         self.url_values_defaults = url_defaults
         self.cli_group = cli_group
