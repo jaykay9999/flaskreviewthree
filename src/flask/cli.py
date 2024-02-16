@@ -298,7 +298,7 @@ class ScriptInfo:
         if self._loaded_app is not None:
             return self._loaded_app
 
-    if self.create_app is not None:
+        if self.create_app is not None:
             app = self.create_app()
         elif self.app_import_path:
             path, name = (
